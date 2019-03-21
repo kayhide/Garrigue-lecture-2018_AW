@@ -304,7 +304,20 @@ Eval compute in remove_head_space " hello".
 (* = "hello" *)
 (* : string  *)
 
-Fixpoint remove_head_spaces (s : string) : string := "".
+Fixpoint remove_head_spaces (s : string) : string :=
+  match s with
+    | String " " s' => remove_head_spaces s'
+    | _ => s
+  end.
 (* 先頭の空白を全て取る *)
+
+Example test_remove_head_spaces1 : remove_head_spaces "hoge" = "hoge".
+Proof. reflexivity. Qed.
+Example test_remove_head_spaces2 : remove_head_spaces " fuga" = "fuga".
+Proof. reflexivity. Qed.
+Example test_remove_head_spaces3 : remove_head_spaces "  piyo" = "piyo".
+Proof. reflexivity. Qed.
+Example test_remove_head_spaces4 : remove_head_spaces "  fuga hoge" = "fuga hoge".
+Proof. reflexivity. Qed.
 
 (* 練習問題 2.4 remove head spaces を正しく定義せよ．*)
