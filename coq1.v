@@ -180,7 +180,30 @@ Inductive winner : Set :=
 | second
 | third
 | aiko.
-Definition play (t1 t2 t3 : janken) : winner := aiko.
+
+Definition play (t1 t2 t3 : janken) : winner :=
+  if andb (wins t1 t2) (wins t1 t3) then first else
+  if andb (wins t2 t3) (wins t2 t1) then second else
+  if andb (wins t3 t1) (wins t3 t2) then third else
+  aiko.
+
+Print play.
+
+Example test_aiko1 : play gu gu gu = aiko.
+Proof. reflexivity. Qed.
+Example test_aiko2 : play choki choki choki = aiko.
+Proof. reflexivity. Qed.
+Example test_aiko3 : play pa pa pa = aiko.
+Proof. reflexivity. Qed.
+Example test_aiko4 : play gu gu choki = aiko.
+Proof. reflexivity. Qed.
+Example test_first1 : play gu choki choki = first.
+Proof. reflexivity. Qed.
+Example test_second1 : play pa choki pa = second.
+Proof. reflexivity. Qed.
+Example test_third1 : play gu gu pa = third.
+Proof. reflexivity. Qed.
+
 End Play3.
 
 (* 練習問題 2.2 Play3.play を正しく定義せよ．*)
