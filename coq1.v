@@ -252,10 +252,18 @@ Eval compute in plus (S (S O)) (S O). (* 式を評価する *)
 (* = S (S (S O)) *)
 (* : nat         *)
 
-Fixpoint mult (m n : nat) {struct m} : nat := O.
-Eval compute in mult (S (S O)) (S O).
-(* = S (S O) (* 期待している値 *)  *)
-(*: nat                            *)
+Fixpoint mult (m n : nat) {struct m} : nat :=
+match m with
+| O => O
+| S m' => plus n (mult m' n) 
+end.
+
+
+Example test_mult1 : mult (S (S O)) O = O.
+Proof. reflexivity. Qed.
+Example test_mult2 : mult (S (S O)) (S O) = S (S O).
+Proof. reflexivity. Qed.
+
 End MyNat.
 
 (* 練習問題 2.3 mult を正しく定義せよ．*)
