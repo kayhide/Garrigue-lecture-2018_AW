@@ -88,9 +88,14 @@ Eval compute in q 4.
 Eval compute in let x := 0 in q x. (* q の中の x の値は変わらない *)
 (* = 6 *)
 (* : Z *)
+
 End Z.
        
-Print Z.p. (* Module の中味へのアクセス *)
+Print Z.p.
+(* Z.p = fun x y : Z => (2 * x - y * y)%Z *)
+(*      : Z -> Z -> Z *)
+
+Print Z.q. (* Module の中味へのアクセス *)
 (* Z.q = Z.p 3 *)
 (* : Z -> Z    *)
 
@@ -99,6 +104,14 @@ Eval compute in 1 - 2. (* Scope は元に戻る *)
 (* : nat *)
 
 (* 練習問題 2.1 Z の中で二つの整数値の平均を計算する関数 heikin : Z -> Z -> Z を定義せよ．*)
+
+Definition heikin : Z -> Z -> Z :=
+  fun x y => ((x + y) / 2)%Z.
+Print heikin.
+
+Compute heikin 2 3.
+Compute heikin 2 4.
+
 
 (* データ型の定義 *)
 Inductive janken : Set := (* じゃんけんの手 *)
