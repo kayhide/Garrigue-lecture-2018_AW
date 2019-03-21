@@ -1,3 +1,11 @@
+.coqdeps.d
+Makefile
+Makefile.conf
+gcd.ml
+gcd.mli
+isort.ml
+isort.mli
+
 .*.aux
 *.a
 *.cma
