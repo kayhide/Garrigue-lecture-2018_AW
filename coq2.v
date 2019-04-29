@@ -250,24 +250,57 @@ Variables P Q R : Prop.
 
 Theorem imp_trans : (P -> Q) -> (Q -> R) -> P -> R.
 Proof.
-Admitted.
+  intros pq qr p.
+  apply qr.
+  apply pq.
+  assumption.
+Qed.
+
 Theorem not_false : ~False.
 Proof.
-Admitted.
+  intros n.
+  assumption.
+Qed.
+
 Theorem double_neg : P -> ~~P.
 Proof.
-Admitted.
+  unfold not.
+  intros p pn.
+  apply pn.
+  assumption.
+Qed.
+
 Theorem contraposition : (P -> Q) -> ~Q -> ~P.
 Proof.
-Admitted.
+  unfold not.
+  intros pq qn p.
+  apply qn.
+  apply pq.
+  assumption.
+Qed.
+
 Theorem and_assoc : P /\ (Q /\ R) -> (P /\ Q) /\ R.
 Proof.
-Admitted.
+  intros pqr.
+  split.
+  - split; apply pqr.
+  - apply pqr.
+Qed.
+
 Theorem and_distr : P /\ (Q \/ R) -> (P /\ Q) \/ (P /\ R).
 Proof.
-Admitted.
+  intros pqr.
+  destruct pqr as [p qr].
+  destruct qr as [q | r].
+  - left.
+    split; assumption.
+  - right.
+    split; assumption.
+Qed.
+  
 Theorem absurd : P -> ~P -> Q.
 Proof.
-Admitted.
+  contradiction.
+Qed.
 
 End Coq2.
