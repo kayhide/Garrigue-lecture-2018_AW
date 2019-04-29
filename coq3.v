@@ -69,11 +69,22 @@ Variables P Q : A -> Prop.
 Theorem exists_postpone :
 (exists x, forall y, R x y) -> (forall y, exists x, R x y).
 Proof.
-Admitted.
+  intros H y.
+  destruct H.
+  exists x.
+  apply H.
+Qed.
 
 Theorem or_exists : (exists x, P x) \/ (exists x, Q x) -> exists x, P x \/ Q x.
 Proof.
-Admitted.
+  intros [p|q].
+  - destruct p.
+    exists x.
+    left; assumption.
+  - destruct q.
+    exists x.
+    right; assumption.
+Qed.
 
 Hypothesis classic : forall P, ~~P -> P.
 
@@ -81,8 +92,21 @@ Theorem remove_c : forall a,
 (forall x y, Q x -> Q y) ->
 (forall c, ((exists x, P x) -> P c) -> Q c) -> Q a.
 Proof.
-Admitted.
+  intros a Qxy PQc.
+  apply classic.
+  intros nQa.
+  apply nQa.
+  apply PQc.
+  intros [x px].
+  elimtype False.
+  apply nQa.
+  apply Qxy with (x := x).
+  apply PQc.
+  intros.
+  assumption.
+Qed.
 
+(* (forall c, ((exists x, P x) -> P c) -> False) -> (forall c, (exists x, Px) /\ forall c. not P c) *)
 End Coq3.
 
 
