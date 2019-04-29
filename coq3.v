@@ -156,16 +156,54 @@ Qed.
 (* —ûK–â‘è 2.1 ˆÈ‰º‚Ì’è—‚ğØ–¾‚¹‚æD*)
 Theorem plus_0 : forall n, n + 0 = n.
 Proof.
-Admitted.
+  induction n.
+  - reflexivity.
+  - simpl.
+    rewrite IHn.
+    reflexivity.
+Qed.
+
 Theorem plus_m_Sn : forall m n, m + (S n) = S (m + n).
 Proof.
-Admitted.
+  intros m n.
+  induction m.
+  - reflexivity.
+  - simpl.
+    rewrite IHm.
+    reflexivity.
+Qed.
+
 Theorem plus_comm : forall m n, m + n = n + m.
 Proof.
-Admitted.
+  intros m n.
+  induction m.
+  - simpl.
+    symmetry.
+    apply plus_0.
+  - simpl.
+    rewrite IHm.
+    symmetry.
+    apply plus_m_Sn.
+Qed.
+
 Theorem plus_distr : forall m n p, (m + n) * p = m * p + n * p.
 Proof.
-Admitted.
+  intros m n.
+  induction m.
+  - reflexivity.
+  - simpl.
+    intros p.
+    rewrite IHm.
+    apply plus_assoc.
+Qed.
+
 Theorem mult_assoc : forall m n p, m * (n * p) = (m * n) * p.
 Proof.
-Admitted.
+  intros m n p.
+  induction m.
+  - reflexivity.
+  - simpl.
+    rewrite IHm.
+    symmetry.
+    apply plus_distr.
+Qed.
